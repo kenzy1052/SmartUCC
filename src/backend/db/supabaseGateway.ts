@@ -6,6 +6,7 @@ import {
   normalizeUsername,
 } from '../utils/authIdentifier.ts';
 import { isStaffRole } from '../types/domain.ts';
+import { mapSignUpError } from '../utils/signUpErrors.ts';
 import { BackendGateway, SignInResult, SignUpInput, SignUpResult } from './gateway.ts';
 import {
   AccountStatus,
@@ -311,18 +312,13 @@ export class SupabaseBackendGateway implements BackendGateway {
     });
 
     if (error || !data.user) {
-      const msg = (error?.message ?? '').toLowerCase();
-      if (msg.includes('ucc_email_required')) {
-        throw new AppError(422, 'UCC_EMAIL_REQUIRED', 'Use your UCC email address (it must end in ucc.edu.gh).');
-      }
-      if (msg.includes('already registered') || msg.includes('already been registered')) {
-        throw new AppError(409, 'EMAIL_ALREADY_REGISTERED', 'That email is already registered. Sign in instead.');
-      }
-      throw new AppError(
-        409,
-        'REGISTRATION_FAILED',
-        'Unable to create the account. Check that your email and index number are not already registered.'
-      );
+      // The student sees a clear message; the exact Supabase reason is kept in the server log.
+      console.error('[signup] Supabase Auth refused the registration', {
+        status: (error as { status?: number } | null)?.status,
+        code: (error as { code?: string } | null)?.code,
+        message: error?.message,
+      });
+      throw mapSignUpError(error);
     }
 
     if (data.session) {
