@@ -1,0 +1,254 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Montserrat", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Inter", "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root {
+  /* Brand Reference Tokens from JNR Identity Image */
+  --qp-brand-primary: #0A4DA8;
+  --qp-brand-primary-hover: #083E86;
+  --qp-brand-primary-dark: #06307A;
+  --qp-brand-accent: #4DA3FF;
+  --qp-brand-accent-hover: #3D94F0;
+  --qp-brand-accent-contrast: #0B2447;
+  --qp-brand-white: #FDFDFD;
+  --qp-brand-obsidian: #1D1D1F;
+  --qp-brand-signal: #007AFF;
+  --qp-brand-signal-light: #E3EEFF;
+
+  /* Semantic Theme Tokens - Light Mode */
+  --qp-canvas: #F5F5F7;
+  --qp-surface: #FFFFFF;
+  --qp-surface-muted: #EEF1F6;
+  --qp-surface-elevated: #FFFFFF;
+  --qp-text-primary: #1D1D1F;
+  --qp-text-secondary: #4B5563;
+  --qp-text-muted: #8A8F98;
+  --qp-border: rgba(10, 77, 168, 0.10);
+  --qp-border-hover: rgba(10, 77, 168, 0.22);
+  --qp-glass-surface: rgba(255, 255, 255, 0.78);
+  --qp-glass-border: rgba(255, 255, 255, 0.70);
+  --qp-glass-shadow: 0 10px 30px -5px rgba(10, 77, 168, 0.08), 0 0 1px 1px rgba(10, 77, 168, 0.05);
+}
+
+.dark {
+  /* Semantic Theme Tokens - Dark Mode */
+  --qp-canvas: #0E0F12;
+  --qp-surface: #17181B;
+  --qp-surface-muted: #1D1F24;
+  --qp-surface-elevated: #25272D;
+  --qp-text-primary: #FDFDFD;
+  --qp-text-secondary: #A8AEB9;
+  --qp-text-muted: #7B818C;
+  --qp-border: rgba(255, 255, 255, 0.10);
+  --qp-border-hover: rgba(77, 163, 255, 0.25);
+  --qp-glass-surface: rgba(24, 26, 25, 0.78);
+  --qp-glass-border: rgba(255, 255, 255, 0.12);
+  --qp-glass-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.55), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+@layer base {
+  html {
+    background-color: var(--qp-canvas);
+    color: var(--qp-text-primary);
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: inherit;
+    color: inherit;
+    overflow-x: hidden;
+  }
+
+  button,
+  [role="button"],
+  select,
+  a {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(10, 77, 168, 0.18);
+    border-radius: 9999px;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.16);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(10, 77, 168, 0.35);
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(77, 163, 255, 0.35);
+  }
+}
+
+/* Glassmorphic utilities */
+.glass-panel {
+  background: var(--qp-glass-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--qp-border);
+  box-shadow: var(--qp-glass-shadow);
+}
+
+.glass-nav {
+  background: var(--qp-glass-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--qp-border);
+}
+
+.glass-sidebar {
+  background: var(--qp-glass-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--qp-border);
+}
+
+.glass-card {
+  background: var(--qp-glass-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--qp-border);
+  box-shadow: var(--qp-glass-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--qp-border-hover);
+}
+
+/* Examination Specific High-Contrast Surfaces */
+.exam-container {
+  background: var(--qp-canvas);
+}
+
+.exam-question-surface {
+  background: #FFFFFF;
+  border: 1px solid var(--qp-border);
+  box-shadow: 0 4px 20px -2px rgba(10, 77, 168, 0.06);
+}
+
+.dark .exam-question-surface {
+  background: #17181C;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+}
+
+.exam-option-card {
+  background: #FDFDFD;
+  border: 1.5px solid rgba(10, 77, 168, 0.12);
+  transition: all 0.15s ease-in-out;
+}
+
+.dark .exam-option-card {
+  background: #1E2025;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+}
+
+.exam-option-card:hover:not(:disabled) {
+  border-color: var(--qp-brand-primary);
+  background: #F2F7FF;
+}
+
+.dark .exam-option-card:hover:not(:disabled) {
+  border-color: var(--qp-brand-accent);
+  background: #262930;
+}
+
+.exam-option-card.selected {
+  border-color: var(--qp-brand-primary);
+  background: #E5F0FF;
+  box-shadow: 0 0 0 1px var(--qp-brand-primary);
+}
+
+.dark .exam-option-card.selected {
+  border-color: var(--qp-brand-accent);
+  background: rgba(77, 163, 255, 0.08);
+  box-shadow: 0 0 0 1px var(--qp-brand-accent);
+}
+
+/* Atmospheric Ambient Background Gradients */
+.ambient-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ambient-glow::before {
+  content: '';
+  position: absolute;
+  top: -10vw;
+  right: -5vw;
+  width: 45vw;
+  height: 45vw;
+  max-width: 600px;
+  max-height: 600px;
+  background: radial-gradient(circle, rgba(77, 163, 255, 0.12) 0%, rgba(0, 122, 255, 0.08) 40%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.ambient-glow::after {
+  content: '';
+  position: absolute;
+  bottom: -10vw;
+  left: -5vw;
+  width: 50vw;
+  height: 50vw;
+  max-width: 700px;
+  max-height: 700px;
+  background: radial-gradient(circle, rgba(10, 77, 168, 0.10) 0%, rgba(0, 122, 255, 0.06) 45%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(70px);
+}
+
+.dark .ambient-glow::before {
+  background: radial-gradient(circle, rgba(77, 163, 255, 0.07) 0%, rgba(10, 77, 168, 0.18) 50%, transparent 75%);
+}
+
+.dark .ambient-glow::after {
+  background: radial-gradient(circle, rgba(10, 77, 168, 0.25) 0%, rgba(0, 122, 255, 0.05) 50%, transparent 75%);
+}
+
+.dashboard-hero {
+  background:
+    radial-gradient(circle at 92% 18%, rgba(77, 163, 255, 0.16) 0, transparent 20rem),
+    radial-gradient(circle at 10% 80%, rgba(0, 122, 255, 0.14) 0, transparent 24rem),
+    linear-gradient(130deg, #E3EEFF 0%, #F4F8FF 50%, #FFFFFF 100%);
+}
+
+.dark .dashboard-hero {
+  background:
+    radial-gradient(circle at 92% 18%, rgba(77, 163, 255, 0.10) 0, transparent 20rem),
+    radial-gradient(circle at 10% 80%, rgba(10, 77, 168, 0.35) 0, transparent 24rem),
+    linear-gradient(130deg, #111C2E 0%, #16181D 50%, #14151A 100%);
+}
